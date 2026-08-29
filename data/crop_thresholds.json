@@ -1,0 +1,18 @@
+{
+  "Paddy Rice": {
+    "optimal_temp_c": {"min": 22, "max": 30},
+    "stress_temp_c": {"moderate": 33, "high": 37, "severe": 41}
+  },
+  "Cotton": {
+    "optimal_temp_c": {"min": 20, "max": 32},
+    "stress_temp_c": {"moderate": 35, "high": 39, "severe": 43}
+  },
+  "Wheat": {
+    "optimal_temp_c": {"min": 15, "max": 25},
+    "stress_temp_c": {"moderate": 28, "high": 33, "severe": 38}
+  },
+  "Corn": {
+    "optimal_temp_c": {"min": 18, "max": 30},
+    "stress_temp_c": {"moderate": 34, "high": 38, "severe": 42}
+  }
+}

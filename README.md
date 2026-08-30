@@ -13,7 +13,7 @@ AgriCool is a starter AI application for the **FortyGuard Global AI Hackathon '2
 - FortyGuard API client with robust offline/mock fallback.
 - Supplementary weather enrichment (humidity, wind, precipitation).
 - Heat index and irrigation estimation engine.
-- LangChain + OpenAI conversational advisor with graceful fallback responses.
+- LangChain conversational advisor (OpenAI or Mistral) with graceful fallback responses.
 - Streamlit dashboard with sidebar inputs, KPI cards, and interactive farmer Q&A.
 
 ## Project Architecture
@@ -45,7 +45,7 @@ cp .env.example .env
 Then add your API keys in `.env`:
 
 - `FORTYGUARD_API_KEY`
-- `OPENAI_API_KEY`
+- `OPENAI_API_KEY` **or** `MISTRAL_API_KEY` (or `OPEN_MISTRAL_API_KEY`)
 
 ## Run
 

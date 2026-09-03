@@ -14,14 +14,24 @@ class FieldContext(BaseModel):
 class AgriAdvisorAgent:
     """LangChain/OpenAI powered advisor with safe local fallback."""
 
-    def __init__(self, model: str = "gpt-4o-mini", temperature: float = 0.2) -> None:
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.model = model
+    def __init__(self, model: str | None = None, temperature: float = 0.2) -> None:
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+        mistral_api_key = os.getenv("MISTRAL_API_KEY") or os.getenv("OPEN_MISTRAL_API_KEY")
+        self.api_key = openai_api_key or mistral_api_key
+        self.provider = "openai" if openai_api_key else ("mistral" if mistral_api_key else None)
+        self.model = model or ("gpt-4o-mini" if self.provider == "openai" else "open-mistral-7b")
         self.temperature = temperature
         self._llm = None
 
         if self.api_key:
-            self._llm = ChatOpenAI(model=self.model, temperature=self.temperature)
+            llm_config = {
+                "model": self.model,
+                "temperature": self.temperature,
+                "api_key": self.api_key,
+            }
+            if self.provider == "mistral":
+                llm_config["base_url"] = "https://api.mistral.ai/v1"
+            self._llm = ChatOpenAI(**llm_config)
 
     def _fallback(self, context: FieldContext) -> str:
         if context.heat_index_c >= 40:
